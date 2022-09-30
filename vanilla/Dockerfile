@@ -1,16 +1,14 @@
 FROM alpine:3.15.0 AS base
 
-ARG ZIP_VERSION
-ARG DL_VERSION
-
 RUN apk add --update-cache \
     unzip
 
+ENV VERSION=1442
 
-ENV DL_LINK=https://terraria.org/api/download/pc-dedicated-server/terraria-server-${ZIP_VERSION}.zip
+ENV DL_LINK=https://terraria.org/api/download/pc-dedicated-server/terraria-server-${VERSION}.zip
+ENV DL_VERSION=${VERSION}
 ENV BOOTSTRAP_FILE=https://raw.githubusercontent.com/chrisjtwomey/terraria/master/vanilla/bootstrap.sh
-ENV DL_VERSION=${DL_VERSION}
-ENV DL_FILE=terraria-server-${ZIP_VERSION}.zip
+ENV DL_FILE=terraria-server-${VERSION}.zip
 
 ADD $DL_LINK /$DL_FILE
 ADD $BOOTSTRAP_FILE /terraria/bootstrap.sh
@@ -23,7 +21,7 @@ RUN unzip /$DL_FILE -d /terraria && \
     chmod +x /terraria-server/TerrariaServer.bin.x86_64
 
 FROM mono:6.10.0.104-slim
-LABEL maintainer="Ryan Sheehan <rsheehan@gmail.com>"
+LABEL maintainer="Chris Twomey <chrisjamestwomey@gmail.com>"
 
 # documenting ports
 EXPOSE 7777
