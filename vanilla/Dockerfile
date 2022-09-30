@@ -1,14 +1,17 @@
 FROM alpine:3.15.0 AS base
 
+ARG ZIP_VERSION
+ARG DL_VERSION
+
 RUN apk add --update-cache \
     unzip
 
 # add the bootstrap file
 COPY bootstrap.sh /terraria-server/bootstrap.sh
 
-ENV DL_LINK=https://terraria.org/api/download/pc-dedicated-server/terraria-server-1442.zip
-ENV DL_VERSION=1442
-ENV DL_FILE=terraria-server-1442.zip
+ENV DL_LINK=https://terraria.org/api/download/pc-dedicated-server/terraria-server-${ZIP_VERSION}.zip
+ENV DL_VERSION=${DL_VERSION}
+ENV DL_FILE=terraria-server-${ZIP_VERSION}.zip
 
 ADD $DL_LINK /$DL_FILE
 
@@ -27,12 +30,10 @@ EXPOSE 7777
 
 # env used in the bootstrap
 ENV LOGPATH=/terraria-server/logs
-ENV WORLDPATH=/root/.local/share/Terraria/Worlds
-ENV WORLD_FILENAME=""
-ENV CONFIGPATH=/config
+ENV WORLDPATH=/terraria-server/Worlds
+ENV WORLD_FILENAME="poobloxs.wld"
+ENV CONFIGPATH=/terraria-server/config
 ENV CONFIG_FILENAME="serverconfig.txt"
-
-VOLUME [ "${WORLDPATH}", "${CONFIGPATH}", "${LOGPATH}" ]
 
 COPY --from=base /terraria-server/ /terraria-server/
 
@@ -40,4 +41,3 @@ COPY --from=base /terraria-server/ /terraria-server/
 WORKDIR /terraria-server
 
 ENTRYPOINT [ "/bin/sh", "bootstrap.sh" ]
-
