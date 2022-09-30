@@ -7,7 +7,7 @@ ENV VERSION=1442
 
 ENV DL_LINK=https://terraria.org/api/download/pc-dedicated-server/terraria-server-${VERSION}.zip
 ENV DL_VERSION=${VERSION}
-ENV BOOTSTRAP_FILE=https://raw.githubusercontent.com/chrisjtwomey/terraria/master/vanilla/bootstrap.sh
+ENV BOOTSTRAP_FILE=https://raw.githubusercontent.com/chrisjtwomey/terraria/master/bootstrap.sh
 ENV DL_FILE=terraria-server-${VERSION}.zip
 
 ADD $DL_LINK /$DL_FILE
