@@ -1,11 +1,12 @@
 FROM alpine:3.15.0 AS base
 
+ARG VERSION
+
 RUN apk add --update-cache \
     unzip
     
 RUN mkdir /terraria-server
 
-ENV VERSION=1444
 ENV BOOTSTRAP_FILE=https://raw.githubusercontent.com/chrisjtwomey/terraria/master/bootstrap.sh
 ENV DL_LINK=https://terraria.org/api/download/pc-dedicated-server/terraria-server-${VERSION}.zip
 ENV DL_FILE=terraria-server-${VERSION}.zip
