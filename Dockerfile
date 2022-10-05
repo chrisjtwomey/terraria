@@ -12,7 +12,7 @@ ENV DL_LINK=https://terraria.org/api/download/pc-dedicated-server/terraria-serve
 ENV DL_FILE=terraria-server-${VERSION}.zip
 
 ADD $DL_LINK /$DL_FILE
-ADD $BOOTSTRAP_FILE /terraria/bootstrap.sh
+ADD $BOOTSTRAP_FILE /bootstrap.sh
 
 RUN unzip /$DL_FILE -d /terraria && \
     mv /terraria/${VERSION}/Linux/* /terraria-server && \
