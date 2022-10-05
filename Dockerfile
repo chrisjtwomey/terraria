@@ -2,6 +2,8 @@ FROM alpine:3.15.0 AS base
 
 RUN apk add --update-cache \
     unzip
+    
+RUN mkdir /terraria-server
 
 ENV VERSION=1444
 ENV BOOTSTRAP_FILE=https://raw.githubusercontent.com/chrisjtwomey/terraria/master/bootstrap.sh
@@ -12,7 +14,6 @@ ADD $DL_LINK /$DL_FILE
 ADD $BOOTSTRAP_FILE /terraria/bootstrap.sh
 
 RUN unzip /$DL_FILE -d /terraria && \
-    mkdir /terraria-server && \
     mv /terraria/${VERSION}/Linux/* /terraria-server && \
     #Linux subfolder does not include any config text file, oddly.
     mv /terraria/${VERSION}/Windows/serverconfig.txt /terraria-server/serverconfig-default.txt && \
