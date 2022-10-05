@@ -5,14 +5,14 @@ ARG VERSION
 RUN apk add --update-cache \
     unzip
     
-RUN mkdir /terraria-server
+RUN mkdir -p /terraria-server
 
 ENV BOOTSTRAP_FILE=https://raw.githubusercontent.com/chrisjtwomey/terraria/master/bootstrap.sh
 ENV DL_LINK=https://terraria.org/api/download/pc-dedicated-server/terraria-server-${VERSION}.zip
 ENV DL_FILE=terraria-server-${VERSION}.zip
 
 ADD $DL_LINK /$DL_FILE
-ADD $BOOTSTRAP_FILE /bootstrap.sh
+ADD $BOOTSTRAP_FILE /terraria-server/bootstrap.sh
 
 RUN unzip /$DL_FILE -d /terraria && \
     mv /terraria/${VERSION}/Linux/* /terraria-server && \
