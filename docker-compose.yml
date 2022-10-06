@@ -1,0 +1,19 @@
+---
+version: "2.1"
+services:
+  terraria:
+    build: 
+      context: https://github.com/chrisjtwomey/terraria.git
+      args:
+        VERSION: 1444
+    container_name: terraria-server
+    volumes:
+      - ~/.local/share/Terraria/Worlds:/terraria-server/Worlds
+      - ~/terraria/vanilla/config:/terraria-server/config
+      - ~/terraria/vanilla/logs:/terraria-server/logs
+    stdin_open: true 
+    tty: true
+    ports:
+      - 7777:7777/tcp
+      - 7777:7777/udp
+    restart: unless-stopped
